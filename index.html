@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MAQSAD MAXIMUM</title>
-  <meta name="description" content="MAQSAD MAXIMUM" />
+  <title>MAQSAD MAXIMUM - AI Pattern Based Prediction</title>
+  <meta name="description" content="MAQSAD MAXIMUM - AI Pattern Based Prediction Engine" />
+  <meta name="author" content="MAQSAD MAXIMUM" />
+  <meta property="og:title" content="MAQSAD MAXIMUM - AI Prediction" />
+  <meta property="og:description" content="AI Pattern Based Prediction Engine" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    @font-face {
-      font-family: 'Smarty';
-      src: url('fonts/smarty.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -24,38 +24,39 @@
       --background: hsl(220, 25%, 8%);
       --foreground: hsl(45, 100%, 85%);
       --card: hsl(220, 30%, 12%);
-      --card-foreground: hsl(45, 100%, 85%);
       --primary: hsl(45, 100%, 60%);
       --primary-foreground: hsl(220, 25%, 8%);
       --muted-foreground: hsl(220, 15%, 55%);
       --border: hsl(45, 50%, 30%);
-      --cyber-dark: hsl(220, 30%, 8%);
       --cyber-card: hsl(220, 30%, 14%);
       --cyber-card-dark: hsl(220, 30%, 10%);
       --gold-light: hsl(45, 100%, 75%);
       --gold-dark: hsl(45, 100%, 50%);
     }
 
+    html, body {
+      overflow: hidden;
+      height: 100%;
+    }
+
     body {
-      font-family: 'Smarty', 'Orbitron', sans-serif;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
       background: var(--background);
       color: var(--foreground);
       min-height: 100vh;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     .screen {
       display: none;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .screen.active {
       display: flex;
     }
 
-    /* Utility Classes */
     .gradient-card {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
     }
@@ -82,7 +83,7 @@
     /* Link Screen */
     #link-screen {
       flex-direction: column;
-      min-height: 100vh;
+      height: 100vh;
     }
 
     .top-header {
@@ -104,9 +105,7 @@
     }
 
     @media (min-width: 640px) {
-      .top-title {
-        font-size: 1.875rem;
-      }
+      .top-title { font-size: 1.875rem; }
     }
 
     .main-content {
@@ -126,6 +125,7 @@
       width: 100%;
       max-width: 28rem;
       box-shadow: 0 0 30px hsla(45, 100%, 60%, 0.1), inset 0 1px 0 hsla(45, 100%, 60%, 0.1);
+      animation: slideUp 0.5s ease-out;
     }
 
     .card-title {
@@ -137,9 +137,7 @@
     }
 
     @media (min-width: 640px) {
-      .card-title {
-        font-size: 1.5rem;
-      }
+      .card-title { font-size: 1.5rem; }
     }
 
     .card-subtitle {
@@ -151,12 +149,12 @@
 
     .game-input {
       width: 100%;
-      background: var(--cyber-dark);
+      background: var(--background);
       border: none;
       border-radius: 0.5rem;
       padding: 0.75rem 1rem;
       color: var(--foreground);
-      font-family: 'Smarty', 'Orbitron', sans-serif;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
       font-size: 0.875rem;
       margin-bottom: 1rem;
       outline: none;
@@ -172,16 +170,16 @@
 
     .game-button {
       width: 100%;
-      padding: 1rem;
+      padding: 0.875rem;
       border: none;
       border-radius: 0.5rem;
-      font-family: 'Smarty', 'Orbitron', sans-serif;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
       font-weight: 700;
       font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--primary-foreground);
-      background: linear-gradient(180deg, hsl(45, 100%, 75%), hsl(45, 100%, 50%));
+      background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
       box-shadow: 0 4px 15px hsla(45, 100%, 60%, 0.3);
       cursor: pointer;
       transition: all 0.3s ease;
@@ -199,7 +197,9 @@
     }
 
     .bottom-telegram {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
       border-top: 1px solid var(--border);
       padding: 1rem;
@@ -208,22 +208,19 @@
     }
 
     .bottom-telegram:hover {
-      background: var(--cyber-card);
+      filter: brightness(1.25);
     }
 
     .telegram-text {
       font-size: 1.25rem;
       font-weight: 700;
-      text-align: center;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--primary);
     }
 
     @media (min-width: 640px) {
-      .telegram-text {
-        font-size: 1.5rem;
-      }
+      .telegram-text { font-size: 1.5rem; }
     }
 
     /* Game Screen */
@@ -277,9 +274,7 @@
     }
 
     @media (min-width: 640px) {
-      .prediction-value {
-        font-size: 0.875rem;
-      }
+      .prediction-value { font-size: 0.875rem; }
     }
 
     .numbers-container {
@@ -297,9 +292,17 @@
       height: 100%;
       border: none;
     }
+
+    .text-primary { color: var(--primary); }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
+
   <!-- Link Screen -->
   <div id="link-screen" class="screen active">
     <div class="top-header">
@@ -309,17 +312,12 @@
       <div class="game-card">
         <h2 class="card-title">Enter Game Link</h2>
         <p class="card-subtitle">Paste your game URL to continue</p>
-        <input 
-          type="url" 
-          id="game-link-input" 
-          class="game-input" 
-          placeholder="https://example.com/game"
-        >
+        <input type="url" id="game-link-input" class="game-input" placeholder="https://example.com/game">
         <button id="start-button" class="game-button" disabled>Start Game</button>
       </div>
     </div>
     <a href="https://t.me/+xLTHqVYg69hhMGM1" target="_blank" rel="noopener noreferrer" class="bottom-telegram">
-      <p class="telegram-text">TELEGRAM</p>
+      <span class="telegram-text">TELEGRAM</span>
     </a>
   </div>
 
@@ -337,14 +335,18 @@
         </div>
         <div class="prediction-item">
           <span class="prediction-label">Prediction</span>
-          <span class="prediction-value" id="prediction-display">BIG</span>
+          <span class="prediction-value text-primary" id="prediction-display">---</span>
         </div>
         <div class="prediction-item">
           <span class="prediction-label">Numbers</span>
           <div class="numbers-container">
-            <span class="prediction-value" id="number1-display">0</span>
-            <span class="prediction-value" id="number2-display">0</span>
+            <span class="prediction-value text-primary" id="number1-display">0</span>
+            <span class="prediction-value text-primary" id="number2-display">0</span>
           </div>
+        </div>
+        <div class="prediction-item">
+          <span class="prediction-label">Confidence</span>
+          <span class="prediction-value text-primary" id="confidence-display">LOW</span>
         </div>
       </div>
       <div class="iframe-wrapper">
@@ -360,9 +362,9 @@
       game: document.getElementById('game-screen')
     };
 
-    function showScreen(screenName) {
-      Object.values(screens).forEach(screen => screen.classList.remove('active'));
-      screens[screenName].classList.add('active');
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      screens[name].classList.add('active');
     }
 
     // Link Screen
@@ -370,48 +372,144 @@
     const startButton = document.getElementById('start-button');
 
     gameLinkInput.addEventListener('input', () => {
-      const isValid = gameLinkInput.value.trim().length > 0;
-      startButton.disabled = !isValid;
+      startButton.disabled = !gameLinkInput.value.trim().length;
     });
 
     gameLinkInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && gameLinkInput.value.trim().length > 0) {
-        startGame();
-      }
+      if (e.key === 'Enter' && gameLinkInput.value.trim().length > 0) startGame();
     });
 
     startButton.addEventListener('click', startGame);
 
     function startGame() {
-      const gameLink = gameLinkInput.value.trim();
-      if (gameLink) {
-        document.getElementById('game-iframe').src = gameLink;
+      const link = gameLinkInput.value.trim();
+      if (link) {
+        document.getElementById('game-iframe').src = link;
         showScreen('game');
         startPredictionSystem();
       }
     }
 
-    // Game Screen - Prediction System
-    let predictionInterval;
+    // AI Pattern-Based Prediction Engine
+    let predictionHistory = [];
+    let lastPeriod = '';
+    let currentPrediction = null;
 
-    function generateNumbers() {
-      // BIG: 5 & 9, SMALL: 0 & 4
-      const isBig = Math.random() > 0.5;
-      const bigNumbers = [5, 9];
-      const smallNumbers = [0, 4];
-      
-      const numbers = isBig ? bigNumbers : smallNumbers;
-      const shuffled = [...numbers].sort(() => Math.random() - 0.5);
+    function analyzePatterns(history) {
+      if (history.length < 3) {
+        return {
+          prediction: Math.random() > 0.5 ? 'BIG' : 'SMALL',
+          confidence: 'LOW',
+          reasoning: 'Insufficient data'
+        };
+      }
 
-      document.getElementById('number1-display').textContent = shuffled[0];
-      document.getElementById('number2-display').textContent = shuffled[1];
-      document.getElementById('prediction-display').textContent = isBig ? 'BIG' : 'SMALL';
+      const recent = history.slice(0, 10);
+
+      // Streak detection
+      let streakCount = 1;
+      const lastResult = recent[0]?.prediction;
+      for (let i = 1; i < recent.length; i++) {
+        if (recent[i]?.prediction === lastResult) streakCount++;
+        else break;
+      }
+
+      // Frequency analysis
+      const bigCount = recent.filter(h => h.prediction === 'BIG').length;
+      const smallCount = recent.length - bigCount;
+
+      // Alternation detection
+      let alternations = 0;
+      for (let i = 0; i < recent.length - 1; i++) {
+        if (recent[i]?.prediction !== recent[i + 1]?.prediction) alternations++;
+      }
+      const isAlternating = alternations > recent.length * 0.6;
+
+      let prediction, confidence, reasoning;
+
+      if (streakCount >= 4) {
+        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+        confidence = 'HIGH';
+        reasoning = 'Streak of ' + streakCount + ' ' + lastResult + ' - reversal expected';
+      } else if (streakCount >= 2 && streakCount < 4) {
+        prediction = Math.random() > 0.4 ? lastResult : (lastResult === 'BIG' ? 'SMALL' : 'BIG');
+        confidence = 'MEDIUM';
+        reasoning = 'Streak of ' + streakCount + ' - momentum analysis';
+      } else if (isAlternating) {
+        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+        confidence = 'HIGH';
+        reasoning = 'Alternating pattern detected';
+      } else if (Math.abs(bigCount - smallCount) >= 4) {
+        prediction = bigCount > smallCount ? 'SMALL' : 'BIG';
+        confidence = 'MEDIUM';
+        reasoning = 'Frequency imbalance: ' + bigCount + 'B/' + smallCount + 'S';
+      } else {
+        prediction = Math.random() > 0.5 ? 'BIG' : 'SMALL';
+        confidence = 'LOW';
+        reasoning = 'Random selection';
+      }
+
+      return { prediction, confidence, reasoning };
     }
 
+    function generateNumbers(prediction) {
+      const pool = prediction === 'BIG' ? [5, 6, 7, 8, 9] : [0, 1, 2, 3, 4];
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      return [shuffled[0], shuffled[1]];
+    }
+
+    function generatePrediction() {
+      const analysis = analyzePatterns(predictionHistory);
+      const numbers = generateNumbers(analysis.prediction);
+      return {
+        prediction: analysis.prediction,
+        numbers: numbers,
+        confidence: analysis.confidence,
+        reasoning: analysis.reasoning
+      };
+    }
+
+    // API History Fetch
+    async function fetchHistory() {
+      try {
+        const ts = Date.now();
+        const response = await fetch(
+          'https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=' + ts
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data && Array.isArray(data)) {
+            const entries = data.map(function(item) {
+              return {
+                prediction: item.number >= 5 ? 'BIG' : 'SMALL',
+                numbers: [item.number]
+              };
+            });
+            if (entries.length > 0) {
+              predictionHistory = entries.slice(0, 10)
+                .concat(predictionHistory.slice(0, 10))
+                .slice(0, 20);
+            }
+          }
+        }
+      } catch (e) {
+        // Silently fail
+      }
+    }
+
+    // Display Update
+    function updateDisplay(data) {
+      document.getElementById('prediction-display').textContent = data.prediction;
+      document.getElementById('number1-display').textContent = data.numbers[0];
+      document.getElementById('number2-display').textContent = data.numbers[1];
+      document.getElementById('confidence-display').textContent = data.confidence;
+    }
+
+    // Period & Timer (Reykjavik Time)
     function updatePeriodAndTimer() {
       const now = new Date();
-      const options = { 
-        timeZone: 'Atlantic/Reykjavik', 
+      const reykjavikString = now.toLocaleString('en-US', {
+        timeZone: 'Atlantic/Reykjavik',
         hour12: false,
         year: 'numeric',
         month: '2-digit',
@@ -419,46 +517,58 @@
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
-      };
-      
-      const reykjavikString = now.toLocaleString('en-US', options);
+      });
       const reykjavikTime = new Date(reykjavikString);
 
       const hours = reykjavikTime.getHours();
       const minutes = reykjavikTime.getMinutes();
       const seconds = reykjavikTime.getSeconds();
 
-      // Calculate total periods (each period is 30 seconds)
       const totalPeriods = Math.floor((hours * 3600 + minutes * 60 + seconds) / 30);
       const upcomingPeriod = totalPeriods + 1;
 
-      // Format date as yyyyMMdd
       const year = reykjavikTime.getFullYear();
       const month = String(reykjavikTime.getMonth() + 1).padStart(2, '0');
       const day = String(reykjavikTime.getDate()).padStart(2, '0');
       const formattedDate = year + month + day;
-
-      // Create period number and get last 5 digits only
       const periodNumber = '100005' + String(upcomingPeriod).padStart(4, '0');
       const originalPeriodNumber = formattedDate + periodNumber;
       const last5Digits = originalPeriodNumber.substring(originalPeriodNumber.length - 5);
 
       document.getElementById('period-display').textContent = last5Digits;
 
-      // Calculate remaining seconds (30-second intervals)
       const remainingSeconds = 30 - (seconds % 30);
       document.getElementById('timer-display').textContent = '00:' + String(remainingSeconds).padStart(2, '0');
 
-      // Change prediction when timer resets
-      if (remainingSeconds === 30) {
-        generateNumbers();
+      // New prediction when period changes
+      if (remainingSeconds === 30 && last5Digits !== lastPeriod) {
+        lastPeriod = last5Digits;
+
+        if (currentPrediction) {
+          predictionHistory.unshift({
+            prediction: currentPrediction.prediction,
+            numbers: currentPrediction.numbers
+          });
+          predictionHistory = predictionHistory.slice(0, 20);
+        }
+
+        fetchHistory();
+
+        currentPrediction = generatePrediction();
+        updateDisplay(currentPrediction);
       }
     }
 
+    // Start System
     function startPredictionSystem() {
-      generateNumbers();
-      updatePeriodAndTimer();
-      predictionInterval = setInterval(updatePeriodAndTimer, 1000);
+      fetchHistory().then(function() {
+        currentPrediction = generatePrediction();
+        updateDisplay(currentPrediction);
+        updatePeriodAndTimer();
+      });
+
+      setInterval(updatePeriodAndTimer, 1000);
+      setInterval(fetchHistory, 30000);
     }
   </script>
 </body>
