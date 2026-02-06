@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --background: hsl(220, 25%, 8%);
@@ -29,7 +29,10 @@
       --danger: hsl(0, 70%, 55%);
     }
 
-    html, body { overflow: hidden; height: 100%; }
+    html, body {
+      overflow: hidden;
+      height: 100%;
+    }
 
     body {
       font-family: 'Rajdhani', sans-serif;
@@ -39,8 +42,15 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .screen { display: none; height: 100vh; overflow: hidden; }
-    .screen.active { display: flex; }
+    /* ===== Shared ===== */
+    .screen {
+      display: none;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .screen.active {
+      display: flex;
+    }
 
     .gradient-gold-text {
       background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
@@ -49,10 +59,18 @@
       background-clip: text;
     }
 
-    /* Toast */
+    .cyber-card-bg {
+      background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
+    }
+
+    /* ===== Toast ===== */
     .toast-container {
-      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
-      z-index: 9999; pointer-events: none;
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      pointer-events: none;
     }
     .toast {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
@@ -66,14 +84,21 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       box-shadow: 0 0 20px hsla(45, 100%, 60%, 0.15);
-      opacity: 0; transform: translateY(-20px);
+      opacity: 0;
+      transform: translateY(-20px);
       transition: all 0.3s ease;
       white-space: nowrap;
     }
-    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    /* Link Screen */
-    #link-screen { flex-direction: column; height: 100vh; }
+    /* ===== Link Screen ===== */
+    #link-screen {
+      flex-direction: column;
+      height: 100vh;
+    }
 
     .top-header {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
@@ -81,14 +106,20 @@
       padding: 1rem;
     }
     .top-title {
-      font-size: 1.5rem; font-weight: 700; text-align: center;
-      text-transform: uppercase; letter-spacing: 0.15em;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
     }
-    @media (min-width: 640px) { .top-title { font-size: 1.875rem; } }
 
     .main-content {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
     }
 
     .game-card {
@@ -96,99 +127,174 @@
       border: 1px solid var(--border);
       border-radius: 0.75rem;
       padding: 1.5rem 2rem;
-      width: 100%; max-width: 28rem;
+      width: 100%;
+      max-width: 28rem;
       box-shadow: 0 0 30px hsla(45, 100%, 60%, 0.1), inset 0 1px 0 hsla(45, 100%, 60%, 0.1);
       animation: slideUp 0.5s ease-out;
     }
 
     .card-title {
-      font-size: 1.25rem; font-weight: 700; text-align: center;
-      margin-bottom: 0.5rem; color: var(--primary);
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
     }
-    @media (min-width: 640px) { .card-title { font-size: 1.5rem; } }
 
     .card-subtitle {
-      text-align: center; color: var(--muted-foreground);
-      font-size: 0.875rem; margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
     }
 
     .game-input {
-      width: 100%; background: var(--cyber-dark);
-      border: 1px solid transparent; border-radius: 0.5rem;
-      padding: 0.75rem 1rem; color: var(--foreground);
-      font-family: 'Rajdhani', sans-serif; font-size: 0.875rem;
-      margin-bottom: 1rem; outline: none; transition: box-shadow 0.2s;
+      width: 100%;
+      background: var(--cyber-dark);
+      border: 1px solid transparent;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      color: var(--foreground);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      outline: none;
+      transition: box-shadow 0.2s;
     }
-    .game-input:focus { box-shadow: 0 0 0 2px var(--primary); }
-    .game-input::placeholder { color: var(--muted-foreground); }
+    .game-input:focus {
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    .game-input::placeholder {
+      color: var(--muted-foreground);
+    }
 
     .game-button {
-      width: 100%; padding: 0.875rem; border: none; border-radius: 0.5rem;
-      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
-      text-transform: uppercase; letter-spacing: 0.1em;
+      width: 100%;
+      padding: 0.875rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--primary-foreground);
       background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
       box-shadow: 0 4px 15px hsla(45, 100%, 60%, 0.3);
-      cursor: pointer; transition: all 0.3s ease;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
     .game-button:hover {
       box-shadow: 0 6px 25px hsla(45, 100%, 60%, 0.5);
       transform: translateY(-2px);
     }
+    .game-button:active {
+      transform: translateY(0);
+    }
 
     .bottom-telegram {
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-      border-top: 1px solid var(--border); padding: 1rem;
-      text-decoration: none; transition: all 0.3s ease;
+      border-top: 1px solid var(--border);
+      padding: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
-    .bottom-telegram:hover { filter: brightness(1.25); }
+    .bottom-telegram:hover {
+      filter: brightness(1.25);
+    }
 
     .telegram-text {
-      font-size: 1.25rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary);
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
     }
-    @media (min-width: 640px) { .telegram-text { font-size: 1.5rem; } }
 
-    /* Game Screen */
-    #game-screen { flex-direction: column; height: 100vh; overflow: hidden; }
+    /* ===== Game Screen ===== */
+    #game-screen {
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
 
     .game-container {
-      position: relative; flex: 1; width: 100%;
-      display: flex; flex-direction: column;
+      position: relative;
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .prediction-bar {
-      position: absolute; top: 0.5rem; left: 0.5rem; right: 0.5rem;
-      z-index: 10; display: flex; justify-content: space-between;
-      align-items: center; padding: 0.625rem 0.75rem;
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      right: 0.5rem;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.625rem 0.75rem;
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-      border: 1px solid hsla(45, 50%, 30%, 0.5); border-radius: 0.5rem;
+      border: 1px solid hsla(45, 50%, 30%, 0.5);
+      border-radius: 0.5rem;
     }
 
     .prediction-item {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
     }
     .prediction-label {
-      font-size: 10px; color: var(--muted-foreground);
-      text-transform: uppercase; letter-spacing: 0.1em;
+      font-size: 10px;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
-    .prediction-value { font-size: 0.75rem; font-weight: 700; color: var(--foreground); }
-    .prediction-value.primary { color: var(--primary); }
-    @media (min-width: 640px) { .prediction-value { font-size: 0.875rem; } }
+    .prediction-value {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--foreground);
+    }
+    .prediction-value.primary {
+      color: var(--primary);
+    }
 
-    .numbers-container { display: flex; gap: 0.5rem; }
-    .iframe-wrapper { flex: 1; width: 100%; }
-    .iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
+    .numbers-container {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .iframe-wrapper {
+      flex: 1;
+      width: 100%;
+    }
+    .iframe-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
     .text-success { color: var(--success); }
     .text-warning { color: var(--warning); }
-    .text-danger { color: var(--danger); }
+    .text-danger  { color: var(--danger); }
 
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Responsive ===== */
+    @media (min-width: 640px) {
+      .top-title       { font-size: 1.875rem; }
+      .card-title      { font-size: 1.5rem; }
+      .telegram-text   { font-size: 1.5rem; }
+      .prediction-value{ font-size: 0.875rem; }
     }
   </style>
 </head>
@@ -196,7 +302,7 @@
 
   <!-- Toast -->
   <div class="toast-container">
-    <div class="toast" id="toast-msg">SET UP YOU PLATFORM</div>
+    <div class="toast" id="toast-msg">SET UP YOUR PLATFORM</div>
   </div>
 
   <!-- Link Screen -->
@@ -207,7 +313,7 @@
     <div class="main-content">
       <div class="game-card">
         <h2 class="card-title">MAQSAD MAXIMUM</h2>
-        <p class="card-subtitle">paste you url continue</p>
+        <p class="card-subtitle">paste your url to continue</p>
         <input type="url" id="game-link-input" class="game-input" placeholder="https://example.com/game">
         <button id="start-button" class="game-button">UNLOCK</button>
       </div>
@@ -252,28 +358,31 @@
   </div>
 
   <script>
-    // ===== Toast System =====
-    let toastTimeout = null;
+    /* ===== Toast System ===== */
+    var toastTimeout = null;
     function showToast(msg, duration) {
-      const el = document.getElementById('toast-msg');
+      var el = document.getElementById('toast-msg');
       el.textContent = msg;
       el.classList.add('show');
       if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(function() { el.classList.remove('show'); }, duration);
+      toastTimeout = setTimeout(function () { el.classList.remove('show'); }, duration);
     }
 
-    // ===== Screen Management =====
-    const screens = { link: document.getElementById('link-screen'), game: document.getElementById('game-screen') };
+    /* ===== Screen Management ===== */
+    var screens = {
+      link: document.getElementById('link-screen'),
+      game: document.getElementById('game-screen')
+    };
     function showScreen(name) {
-      Object.values(screens).forEach(function(s) { s.classList.remove('active'); });
+      Object.values(screens).forEach(function (s) { s.classList.remove('active'); });
       screens[name].classList.add('active');
     }
 
-    // ===== Link Screen =====
+    /* ===== Link Screen ===== */
     var gameLinkInput = document.getElementById('game-link-input');
     var startButton = document.getElementById('start-button');
 
-    gameLinkInput.addEventListener('keydown', function(e) {
+    gameLinkInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') startGame();
     });
     startButton.addEventListener('click', startGame);
@@ -281,7 +390,7 @@
     function startGame() {
       var link = gameLinkInput.value.trim();
       if (!link) {
-        showToast('SET UP YOU PLATFOM', 5000);
+        showToast('SET UP YOUR PLATFORM', 5000);
         return;
       }
       document.getElementById('game-iframe').src = link;
@@ -289,13 +398,13 @@
       startPredictionSystem();
     }
 
-    // ===== AI Pattern-Based Prediction Engine =====
+    /* ===== AI Pattern-Based Prediction Engine ===== */
     var historyData = [];
     var lastIssueNumber = '';
     var currentTimer = 30;
 
     function generateNumbers(prediction, seed) {
-      var pool = prediction === 'BIG' ? [5,6,7,8,9] : [0,1,2,3,4];
+      var pool = prediction === 'BIG' ? [5, 6, 7, 8, 9] : [0, 1, 2, 3, 4];
       var idx1 = seed % pool.length;
       var idx2 = (seed + 2) % pool.length;
       var num1 = pool[idx1];
@@ -305,39 +414,72 @@
     }
 
     function analyzePatterns() {
-      if (historyData.length < 3) return { prediction:'BIG', numbers:[5,6], confidence:'LOW', reasoning:'Insufficient data' };
+      if (historyData.length < 3) {
+        return { prediction: 'BIG', numbers: [5, 6], confidence: 'LOW', reasoning: 'Insufficient data' };
+      }
 
-      var numbers = historyData.map(function(h) { return parseInt(h.number, 10); });
-      var results = numbers.map(function(n) { return n >= 5 ? 'BIG' : 'SMALL'; });
+      var numbers = historyData.map(function (h) { return parseInt(h.number, 10); });
+      var results = numbers.map(function (n) { return n >= 5 ? 'BIG' : 'SMALL'; });
 
-      var streakCount = 1, lastResult = results[0];
-      for (var i = 1; i < results.length; i++) { if (results[i] === lastResult) streakCount++; else break; }
+      var streakCount = 1;
+      var lastResult = results[0];
+      for (var i = 1; i < results.length; i++) {
+        if (results[i] === lastResult) streakCount++;
+        else break;
+      }
 
       var recent10 = results.slice(0, 10);
-      var bigCount = recent10.filter(function(r) { return r === 'BIG'; }).length;
+      var bigCount = recent10.filter(function (r) { return r === 'BIG'; }).length;
       var smallCount = recent10.length - bigCount;
 
       var alternations = 0;
-      for (var i = 0; i < Math.min(results.length - 1, 10); i++) { if (results[i] !== results[i+1]) alternations++; }
+      for (var j = 0; j < Math.min(results.length - 1, 10); j++) {
+        if (results[j] !== results[j + 1]) alternations++;
+      }
       var alternationRatio = alternations / Math.min(results.length - 1, 9);
 
-      var recentSum = numbers.slice(0, 5).reduce(function(a,b) { return a+b; }, 0);
+      var recentSum = numbers.slice(0, 5).reduce(function (a, b) { return a + b; }, 0);
       var avgRecent = recentSum / 5;
       var lastNumber = numbers[0];
-      var numberRepeatCount = numbers.slice(0, 5).filter(function(n) { return n === lastNumber; }).length;
+      var numberRepeatCount = numbers.slice(0, 5).filter(function (n) { return n === lastNumber; }).length;
 
       var prediction, confidence, reasoning;
 
-      if (streakCount >= 5) { prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG'; confidence = 'HIGH'; reasoning = 'Streak ' + streakCount + 'x ' + lastResult + ' - reversal expected'; }
-      else if (streakCount >= 3) { prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG'; confidence = 'MEDIUM'; reasoning = 'Streak ' + streakCount + 'x ' + lastResult + ' - likely change'; }
-      else if (alternationRatio > 0.7) { prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG'; confidence = 'HIGH'; reasoning = 'Alternating pattern detected'; }
-      else if (Math.abs(bigCount - smallCount) >= 4) { prediction = bigCount > smallCount ? 'SMALL' : 'BIG'; confidence = 'MEDIUM'; reasoning = 'Imbalance: ' + bigCount + 'B/' + smallCount + 'S'; }
-      else if (avgRecent >= 6) { prediction = 'SMALL'; confidence = 'MEDIUM'; reasoning = 'High avg (' + avgRecent.toFixed(1) + ') - correction'; }
-      else if (avgRecent <= 3) { prediction = 'BIG'; confidence = 'MEDIUM'; reasoning = 'Low avg (' + avgRecent.toFixed(1) + ') - correction'; }
-      else if (numberRepeatCount >= 3) { prediction = lastNumber >= 5 ? 'SMALL' : 'BIG'; confidence = 'MEDIUM'; reasoning = 'Number ' + lastNumber + ' repeating'; }
-      else { prediction = lastResult; confidence = 'LOW'; reasoning = 'Following momentum'; }
+      if (streakCount >= 5) {
+        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+        confidence = 'HIGH';
+        reasoning = 'Streak ' + streakCount + 'x ' + lastResult + ' - reversal expected';
+      } else if (streakCount >= 3) {
+        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+        confidence = 'MEDIUM';
+        reasoning = 'Streak ' + streakCount + 'x ' + lastResult + ' - likely change';
+      } else if (alternationRatio > 0.7) {
+        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+        confidence = 'HIGH';
+        reasoning = 'Alternating pattern detected';
+      } else if (Math.abs(bigCount - smallCount) >= 4) {
+        prediction = bigCount > smallCount ? 'SMALL' : 'BIG';
+        confidence = 'MEDIUM';
+        reasoning = 'Imbalance: ' + bigCount + 'B/' + smallCount + 'S';
+      } else if (avgRecent >= 6) {
+        prediction = 'SMALL';
+        confidence = 'MEDIUM';
+        reasoning = 'High avg (' + avgRecent.toFixed(1) + ') - correction';
+      } else if (avgRecent <= 3) {
+        prediction = 'BIG';
+        confidence = 'MEDIUM';
+        reasoning = 'Low avg (' + avgRecent.toFixed(1) + ') - correction';
+      } else if (numberRepeatCount >= 3) {
+        prediction = lastNumber >= 5 ? 'SMALL' : 'BIG';
+        confidence = 'MEDIUM';
+        reasoning = 'Number ' + lastNumber + ' repeating';
+      } else {
+        prediction = lastResult;
+        confidence = 'LOW';
+        reasoning = 'Following momentum';
+      }
 
-      var seedNumber = numbers.slice(0, 3).reduce(function(a,b) { return a+b; }, 0);
+      var seedNumber = numbers.slice(0, 3).reduce(function (a, b) { return a + b; }, 0);
       return { prediction: prediction, numbers: generateNumbers(prediction, seedNumber), confidence: confidence, reasoning: reasoning };
     }
 
@@ -353,12 +495,17 @@
               var latestIssue = historyData[0].issueNumber;
               var nextPeriodNum = (parseInt(latestIssue, 10) + 1).toString();
               document.getElementById('period-display').textContent = nextPeriodNum.substring(nextPeriodNum.length - 5);
-              if (latestIssue !== lastIssueNumber) { lastIssueNumber = latestIssue; currentTimer = 30; }
+              if (latestIssue !== lastIssueNumber) {
+                lastIssueNumber = latestIssue;
+                currentTimer = 30;
+              }
             }
             updateDisplay(analyzePatterns());
           }
         }
-      } catch (e) { console.error('Failed to fetch history:', e); }
+      } catch (e) {
+        console.error('Failed to fetch history:', e);
+      }
     }
 
     function updateDisplay(data) {
