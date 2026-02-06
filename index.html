@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MAQSAD MAXIMUM</title>
+  <title>MAQSAD MAXIMUM - AI Pattern Based Prediction</title>
   <meta name="description" content="MAQSAD MAXIMUM - AI Pattern Based Prediction Engine" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,19 +57,11 @@
       display: flex;
     }
 
-    .gradient-card {
-      background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-    }
-
     .gradient-gold-text {
       background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-    }
-
-    .glow-gold {
-      box-shadow: 0 0 30px hsla(45, 100%, 60%, 0.1), inset 0 1px 0 hsla(45, 100%, 60%, 0.1);
     }
 
     /* Link Screen */
@@ -388,59 +380,28 @@
     }
 
     // ===== AI Pattern-Based Prediction Engine =====
+    // 100% DETERMINISTIC - Same prediction for ALL users worldwide
+    
     let historyData = [];
-    let lastPeriod = '';
+    let lastIssueNumber = '';
+    let currentTimer = 30;
 
-    // Fetch history from API
-    async function fetchHistory() {
-      try {
-        const ts = Date.now();
-        const response = await fetch(
-          'https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=' + ts
-        );
-        if (response.ok) {
-          const json = await response.json();
-          if (json && json.data && Array.isArray(json.data.list)) {
-            historyData = json.data.list.slice(0, 20);
-            return true;
-          }
-        }
-      } catch (e) {
-        console.error('Failed to fetch history:', e);
+    // Generate numbers deterministically based on prediction and seed
+    function generateNumbers(prediction, seed) {
+      const pool = prediction === 'BIG' ? [5, 6, 7, 8, 9] : [0, 1, 2, 3, 4];
+      const idx1 = seed % pool.length;
+      let idx2 = (seed + 2) % pool.length;
+      
+      const num1 = pool[idx1];
+      let num2 = pool[idx2];
+      if (num1 === num2) {
+        num2 = pool[(idx2 + 1) % pool.length];
       }
-      return false;
+      
+      return [num1, num2];
     }
 
-    // Fetch current game issue
-    async function fetchCurrentGameIssue() {
-      try {
-        const timestamp = Math.floor(Date.now() / 1000);
-        const response = await fetch('https://api.bdg88zf.com/api/webapi/GetGameIssue', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            typeId: 1,
-            language: 0,
-            random: timestamp.toString(),
-            signature: timestamp.toString()
-          })
-        });
-        if (response.ok) {
-          const json = await response.json();
-          if (json && json.data) {
-            return {
-              issueNumber: json.data.issueNumber || '',
-              seconds: json.data.seconds || 30
-            };
-          }
-        }
-      } catch (e) {
-        console.error('Failed to fetch game issue:', e);
-      }
-      return null;
-    }
-
-    // AI Pattern Analysis - deterministic based on API data
+    // AI Pattern Analysis - 100% deterministic based on API history data
     function analyzePatterns() {
       if (historyData.length < 3) {
         return {
@@ -451,7 +412,7 @@
         };
       }
 
-      // Convert history to numbers
+      // Convert history to numbers - SAME DATA FOR ALL USERS FROM API
       const numbers = historyData.map(h => parseInt(h.number, 10));
       const results = numbers.map(n => n >= 5 ? 'BIG' : 'SMALL');
 
@@ -483,7 +444,7 @@
       const lastNumber = numbers[0];
       const numberRepeatCount = numbers.slice(0, 5).filter(n => n === lastNumber).length;
 
-      // Decision Engine
+      // Decision Engine - DETERMINISTIC LOGIC
       let prediction, confidence, reasoning;
 
       if (streakCount >= 5) {
@@ -520,7 +481,7 @@
         reasoning = 'Following momentum';
       }
 
-      // Generate numbers deterministically
+      // Generate numbers deterministically from API data seed
       const seedNumber = numbers.slice(0, 3).reduce((a, b) => a + b, 0);
       const generatedNumbers = generateNumbers(prediction, seedNumber);
 
@@ -532,58 +493,45 @@
       };
     }
 
-    // Generate numbers based on prediction
-    function generateNumbers(prediction, seed) {
-      const pool = prediction === 'BIG' ? [5, 6, 7, 8, 9] : [0, 1, 2, 3, 4];
-      const idx1 = seed % pool.length;
-      let idx2 = (seed + 2) % pool.length;
-      
-      const num1 = pool[idx1];
-      let num2 = pool[idx2];
-      if (num1 === num2) {
-        num2 = pool[(idx2 + 1) % pool.length];
+    // Fetch history from API - SAME DATA FOR ALL USERS WORLDWIDE
+    async function fetchHistory() {
+      try {
+        const ts = Date.now();
+        const response = await fetch(
+          'https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=' + ts
+        );
+        if (response.ok) {
+          const json = await response.json();
+          if (json && json.data && Array.isArray(json.data.list)) {
+            historyData = json.data.list.slice(0, 20);
+            
+            // Get period from latest history issue - SAME FOR ALL USERS
+            if (historyData.length > 0 && historyData[0].issueNumber) {
+              const latestIssue = historyData[0].issueNumber;
+              // Next period = latest issue + 1
+              const nextPeriodNum = (parseInt(latestIssue, 10) + 1).toString();
+              const last5 = nextPeriodNum.substring(nextPeriodNum.length - 5);
+              
+              document.getElementById('period-display').textContent = last5;
+              
+              // Check if new period - reset timer
+              if (latestIssue !== lastIssueNumber) {
+                lastIssueNumber = latestIssue;
+                currentTimer = 30;
+              }
+            }
+            
+            // Analyze and update display
+            const prediction = analyzePatterns();
+            updateDisplay(prediction);
+            
+            return true;
+          }
+        }
+      } catch (e) {
+        console.error('Failed to fetch history:', e);
       }
-      
-      return [num1, num2];
-    }
-
-    // Get period info from Reykjavik time (fallback)
-    function getPeriodInfo() {
-      const now = new Date();
-      const reykjavikString = now.toLocaleString('en-US', {
-        timeZone: 'Atlantic/Reykjavik',
-        hour12: false,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-      const reykjavikTime = new Date(reykjavikString);
-
-      const hours = reykjavikTime.getHours();
-      const minutes = reykjavikTime.getMinutes();
-      const seconds = reykjavikTime.getSeconds();
-
-      const totalPeriods = Math.floor((hours * 3600 + minutes * 60 + seconds) / 30);
-      const upcomingPeriod = totalPeriods + 1;
-
-      const year = reykjavikTime.getFullYear();
-      const month = String(reykjavikTime.getMonth() + 1).padStart(2, '0');
-      const day = String(reykjavikTime.getDate()).padStart(2, '0');
-      const formattedDate = year + month + day;
-      const periodNumber = '100005' + String(upcomingPeriod).padStart(4, '0');
-      const fullPeriod = formattedDate + periodNumber;
-      const last5Digits = fullPeriod.substring(fullPeriod.length - 5);
-
-      const remainingSeconds = 30 - (seconds % 30);
-
-      return {
-        period: last5Digits,
-        timer: remainingSeconds,
-        fullPeriod: fullPeriod
-      };
+      return false;
     }
 
     // Update display
@@ -600,48 +548,11 @@
       else confEl.classList.add('text-danger');
     }
 
-    // Update period and timer
-    async function updatePeriodTimer() {
-      const gameIssue = await fetchCurrentGameIssue();
-      
-      if (gameIssue && gameIssue.issueNumber) {
-        const issueNum = gameIssue.issueNumber;
-        const last5 = issueNum.substring(issueNum.length - 5);
-        document.getElementById('period-display').textContent = last5;
-        document.getElementById('timer-display').textContent = '00:' + String(gameIssue.seconds).padStart(2, '0');
-        
-        if (last5 !== lastPeriod) {
-          lastPeriod = last5;
-          await fetchAndAnalyze();
-        }
-      } else {
-        const info = getPeriodInfo();
-        document.getElementById('period-display').textContent = info.period;
-        document.getElementById('timer-display').textContent = '00:' + String(info.timer).padStart(2, '0');
-        
-        if (info.timer === 30 && info.period !== lastPeriod) {
-          lastPeriod = info.period;
-          await fetchAndAnalyze();
-        }
-      }
-    }
-
-    // Fetch and analyze
-    async function fetchAndAnalyze() {
-      await fetchHistory();
-      if (historyData.length > 0) {
-        const prediction = analyzePatterns();
-        updateDisplay(prediction);
-      }
-    }
-
     // Timer countdown
-    let currentTimer = 30;
     function tickTimer() {
       currentTimer--;
       if (currentTimer <= 0) {
         currentTimer = 30;
-        fetchAndAnalyze();
       }
       document.getElementById('timer-display').textContent = '00:' + String(currentTimer).padStart(2, '0');
     }
@@ -649,17 +560,13 @@
     // Start prediction system
     function startPredictionSystem() {
       // Initial load
-      fetchAndAnalyze();
-      updatePeriodTimer();
+      fetchHistory();
 
       // Timer countdown every second
       setInterval(tickTimer, 1000);
 
-      // Fetch history every 5 seconds
-      setInterval(fetchAndAnalyze, 5000);
-
-      // Update period info every 10 seconds
-      setInterval(updatePeriodTimer, 10000);
+      // Fetch history every 3 seconds for fast sync
+      setInterval(fetchHistory, 3000);
     }
   </script>
 </body>
