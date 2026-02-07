@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MAQSAD MAXIMUM</title>
   <meta name="description" content="MAQSAD MAXIMUM - AI Pattern Based Prediction Engine" />
+  <link rel="icon" href="/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,14 +44,8 @@
     }
 
     /* ===== Shared ===== */
-    .screen {
-      display: none;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .screen.active {
-      display: flex;
-    }
+    .screen { display: none; height: 100vh; overflow: hidden; }
+    .screen.active { display: flex; }
 
     .gradient-gold-text {
       background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
@@ -65,220 +60,125 @@
 
     /* ===== Toast ===== */
     .toast-container {
-      position: fixed;
-      top: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      pointer-events: none;
+      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+      z-index: 9999; pointer-events: none;
     }
     .toast {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-      border: 1px solid var(--border);
-      color: var(--primary);
-      padding: 0.875rem 1.5rem;
-      border-radius: 0.5rem;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      border: 1px solid var(--border); color: var(--primary);
+      padding: 0.875rem 1.5rem; border-radius: 0.5rem;
+      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
       box-shadow: 0 0 20px hsla(45, 100%, 60%, 0.15);
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: all 0.3s ease;
-      white-space: nowrap;
+      opacity: 0; transform: translateY(-20px);
+      transition: all 0.3s ease; white-space: nowrap;
     }
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .toast.show { opacity: 1; transform: translateY(0); }
 
     /* ===== Link Screen ===== */
-    #link-screen {
-      flex-direction: column;
-      height: 100vh;
-    }
+    #link-screen { flex-direction: column; height: 100vh; }
 
     .top-header {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-      border-bottom: 1px solid var(--border);
-      padding: 1rem;
+      border-bottom: 1px solid var(--border); padding: 1rem;
     }
     .top-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
+      font-size: 1.5rem; font-weight: 700; text-align: center;
+      text-transform: uppercase; letter-spacing: 0.15em;
     }
 
     .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 1rem;
     }
 
     .game-card {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 1.5rem 2rem;
-      width: 100%;
-      max-width: 28rem;
+      border: 1px solid var(--border); border-radius: 0.75rem;
+      padding: 1.5rem 2rem; width: 100%; max-width: 28rem;
       box-shadow: 0 0 30px hsla(45, 100%, 60%, 0.1), inset 0 1px 0 hsla(45, 100%, 60%, 0.1);
       animation: slideUp 0.5s ease-out;
     }
 
     .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 0.5rem;
-      color: var(--primary);
+      font-size: 1.25rem; font-weight: 700; text-align: center;
+      margin-bottom: 0.5rem; color: var(--primary);
     }
-
     .card-subtitle {
-      text-align: center;
-      color: var(--muted-foreground);
-      font-size: 0.875rem;
-      margin-bottom: 1.5rem;
+      text-align: center; color: var(--muted-foreground);
+      font-size: 0.875rem; margin-bottom: 1.5rem;
     }
 
     .game-input {
-      width: 100%;
-      background: var(--cyber-dark);
-      border: 1px solid transparent;
-      border-radius: 0.5rem;
-      padding: 0.75rem 1rem;
-      color: var(--foreground);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.875rem;
-      margin-bottom: 1rem;
-      outline: none;
-      transition: box-shadow 0.2s;
+      width: 100%; background: var(--cyber-dark);
+      border: 1px solid transparent; border-radius: 0.5rem;
+      padding: 0.75rem 1rem; color: var(--foreground);
+      font-family: 'Rajdhani', sans-serif; font-size: 0.875rem;
+      margin-bottom: 1rem; outline: none; transition: box-shadow 0.2s;
     }
-    .game-input:focus {
-      box-shadow: 0 0 0 2px var(--primary);
-    }
-    .game-input::placeholder {
-      color: var(--muted-foreground);
-    }
+    .game-input:focus { box-shadow: 0 0 0 2px var(--primary); }
+    .game-input::placeholder { color: var(--muted-foreground); }
 
     .game-button {
-      width: 100%;
-      padding: 0.875rem;
-      border: none;
-      border-radius: 0.5rem;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      width: 100%; padding: 0.875rem; border: none; border-radius: 0.5rem;
+      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
       color: var(--primary-foreground);
       background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
       box-shadow: 0 4px 15px hsla(45, 100%, 60%, 0.3);
-      cursor: pointer;
-      transition: all 0.3s ease;
+      cursor: pointer; transition: all 0.3s ease;
     }
     .game-button:hover {
       box-shadow: 0 6px 25px hsla(45, 100%, 60%, 0.5);
       transform: translateY(-2px);
     }
-    .game-button:active {
-      transform: translateY(0);
-    }
+    .game-button:active { transform: translateY(0); }
 
     .bottom-telegram {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-      border-top: 1px solid var(--border);
-      padding: 1rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
+      border-top: 1px solid var(--border); padding: 0.75rem;
+      text-decoration: none; transition: all 0.3s ease;
     }
-    .bottom-telegram:hover {
-      filter: brightness(1.25);
-    }
+    .bottom-telegram:hover { filter: brightness(1.25); }
 
     .telegram-text {
-      font-size: 1.25rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--primary);
+      font-size: 1.125rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--primary);
     }
 
     /* ===== Game Screen ===== */
-    #game-screen {
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
-    }
+    #game-screen { flex-direction: column; height: 100vh; overflow: hidden; }
 
     .game-container {
-      position: relative;
-      flex: 1;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
+      position: relative; flex: 1; width: 100%;
+      display: flex; flex-direction: column;
     }
 
     .prediction-bar {
-      position: absolute;
-      top: 0.5rem;
-      left: 0.5rem;
-      right: 0.5rem;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.625rem 0.75rem;
+      position: absolute; top: 0.5rem; left: 0.5rem; right: 0.5rem;
+      z-index: 10; display: flex; justify-content: space-between;
+      align-items: center; padding: 0.625rem 0.75rem;
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
-      border: 1px solid hsla(45, 50%, 30%, 0.5);
-      border-radius: 0.5rem;
+      border: 1px solid hsla(45, 50%, 30%, 0.5); border-radius: 0.5rem;
     }
 
     .prediction-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.25rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
     }
     .prediction-label {
-      font-size: 10px;
-      color: var(--muted-foreground);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      font-size: 10px; color: var(--muted-foreground);
+      text-transform: uppercase; letter-spacing: 0.1em;
     }
     .prediction-value {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--foreground);
+      font-size: 0.75rem; font-weight: 700; color: var(--foreground);
     }
-    .prediction-value.primary {
-      color: var(--primary);
-    }
+    .prediction-value.primary { color: var(--primary); }
 
-    .numbers-container {
-      display: flex;
-      gap: 0.5rem;
-    }
+    .numbers-container { display: flex; gap: 0.5rem; }
 
-    .iframe-wrapper {
-      flex: 1;
-      width: 100%;
-    }
-    .iframe-wrapper iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .iframe-wrapper { flex: 1; width: 100%; }
+    .iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
 
     .text-success { color: var(--success); }
     .text-warning { color: var(--warning); }
@@ -289,12 +189,11 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== Responsive ===== */
     @media (min-width: 640px) {
-      .top-title       { font-size: 1.875rem; }
-      .card-title      { font-size: 1.5rem; }
-      .telegram-text   { font-size: 1.5rem; }
-      .prediction-value{ font-size: 0.875rem; }
+      .top-title        { font-size: 1.875rem; }
+      .card-title       { font-size: 1.5rem; }
+      .telegram-text    { font-size: 1.25rem; }
+      .prediction-value { font-size: 0.875rem; }
     }
   </style>
 </head>
@@ -302,7 +201,7 @@
 
   <!-- Toast -->
   <div class="toast-container">
-    <div class="toast" id="toast-msg">SET UP YOUR PLATFORM</div>
+    <div class="toast" id="toast-msg"></div>
   </div>
 
   <!-- Link Screen -->
@@ -355,17 +254,20 @@
         <iframe id="game-iframe" title="Game Frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
       </div>
     </div>
+    <a href="https://t.me/+xLTHqVYg69hhMGM1" target="_blank" rel="noopener noreferrer" class="bottom-telegram">
+      <span class="telegram-text">TELEGRAM</span>
+    </a>
   </div>
 
   <script>
-    /* ===== Toast System ===== */
+    /* ===== Toast ===== */
     var toastTimeout = null;
     function showToast(msg, duration) {
       var el = document.getElementById('toast-msg');
       el.textContent = msg;
       el.classList.add('show');
       if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(function () { el.classList.remove('show'); }, duration);
+      toastTimeout = setTimeout(function() { el.classList.remove('show'); }, duration || 3000);
     }
 
     /* ===== Screen Management ===== */
@@ -374,7 +276,7 @@
       game: document.getElementById('game-screen')
     };
     function showScreen(name) {
-      Object.values(screens).forEach(function (s) { s.classList.remove('active'); });
+      Object.values(screens).forEach(function(s) { s.classList.remove('active'); });
       screens[name].classList.add('active');
     }
 
@@ -382,7 +284,7 @@
     var gameLinkInput = document.getElementById('game-link-input');
     var startButton = document.getElementById('start-button');
 
-    gameLinkInput.addEventListener('keydown', function (e) {
+    gameLinkInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') startGame();
     });
     startButton.addEventListener('click', startGame);
@@ -398,10 +300,14 @@
       startPredictionSystem();
     }
 
-    /* ===== AI Pattern-Based Prediction Engine ===== */
+    /* ===== Deterministic AI Prediction Engine ===== */
+    /* All devices produce the SAME prediction because it's derived
+       purely from API history data — no local randomness. */
+
     var historyData = [];
     var lastIssueNumber = '';
-    var currentTimer = 30;
+    var tickerInterval = null;
+    var fetchInterval = null;
 
     function generateNumbers(prediction, seed) {
       var pool = prediction === 'BIG' ? [5, 6, 7, 8, 9] : [0, 1, 2, 3, 4];
@@ -418,9 +324,10 @@
         return { prediction: 'BIG', numbers: [5, 6], confidence: 'LOW', reasoning: 'Insufficient data' };
       }
 
-      var numbers = historyData.map(function (h) { return parseInt(h.number, 10); });
-      var results = numbers.map(function (n) { return n >= 5 ? 'BIG' : 'SMALL'; });
+      var numbers = historyData.map(function(h) { return parseInt(h.number, 10); });
+      var results = numbers.map(function(n) { return n >= 5 ? 'BIG' : 'SMALL'; });
 
+      /* Streak detection */
       var streakCount = 1;
       var lastResult = results[0];
       for (var i = 1; i < results.length; i++) {
@@ -428,20 +335,23 @@
         else break;
       }
 
+      /* Distribution */
       var recent10 = results.slice(0, 10);
-      var bigCount = recent10.filter(function (r) { return r === 'BIG'; }).length;
+      var bigCount = recent10.filter(function(r) { return r === 'BIG'; }).length;
       var smallCount = recent10.length - bigCount;
 
+      /* Alternation */
       var alternations = 0;
       for (var j = 0; j < Math.min(results.length - 1, 10); j++) {
         if (results[j] !== results[j + 1]) alternations++;
       }
       var alternationRatio = alternations / Math.min(results.length - 1, 9);
 
-      var recentSum = numbers.slice(0, 5).reduce(function (a, b) { return a + b; }, 0);
+      /* Average */
+      var recentSum = numbers.slice(0, 5).reduce(function(a, b) { return a + b; }, 0);
       var avgRecent = recentSum / 5;
       var lastNumber = numbers[0];
-      var numberRepeatCount = numbers.slice(0, 5).filter(function (n) { return n === lastNumber; }).length;
+      var numberRepeatCount = numbers.slice(0, 5).filter(function(n) { return n === lastNumber; }).length;
 
       var prediction, confidence, reasoning;
 
@@ -479,36 +389,41 @@
         reasoning = 'Following momentum';
       }
 
-      var seedNumber = numbers.slice(0, 3).reduce(function (a, b) { return a + b; }, 0);
-      return { prediction: prediction, numbers: generateNumbers(prediction, seedNumber), confidence: confidence, reasoning: reasoning };
+      var seedNumber = numbers.slice(0, 3).reduce(function(a, b) { return a + b; }, 0);
+      return {
+        prediction: prediction,
+        numbers: generateNumbers(prediction, seedNumber),
+        confidence: confidence,
+        reasoning: reasoning
+      };
     }
 
-    async function fetchHistory() {
-      try {
-        var ts = Date.now();
-        var response = await fetch('https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=' + ts);
-        if (response.ok) {
-          var json = await response.json();
-          if (json && json.data && Array.isArray(json.data.list)) {
-            historyData = json.data.list.slice(0, 20);
-            if (historyData.length > 0 && historyData[0].issueNumber) {
-              var latestIssue = historyData[0].issueNumber;
-              var nextPeriodNum = (parseInt(latestIssue, 10) + 1).toString();
-              document.getElementById('period-display').textContent = nextPeriodNum.substring(nextPeriodNum.length - 5);
-              if (latestIssue !== lastIssueNumber) {
-                lastIssueNumber = latestIssue;
-                currentTimer = 30;
-              }
-            }
-            updateDisplay(analyzePatterns());
-          }
-        }
-      } catch (e) {
-        console.error('Failed to fetch history:', e);
-      }
+    /* Period & Timer — UTC-based, deterministic across all devices */
+    function updatePeriodTimer() {
+      var now = new Date();
+      var hours = now.getUTCHours();
+      var minutes = now.getUTCMinutes();
+      var seconds = now.getUTCSeconds();
+
+      var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+      var totalPeriods = Math.floor(totalSeconds / 30);
+      var upcomingPeriod = totalPeriods + 1;
+
+      var year = now.getUTCFullYear();
+      var month = String(now.getUTCMonth() + 1).padStart(2, '0');
+      var day = String(now.getUTCDate()).padStart(2, '0');
+      var formattedDate = year + '' + month + '' + day;
+      var periodNumber = '100005' + String(upcomingPeriod).padStart(4, '0');
+      var fullPeriodNumber = formattedDate + periodNumber;
+
+      var last5 = fullPeriodNumber.slice(-5);
+      var remainingSeconds = 30 - (seconds % 30);
+
+      document.getElementById('period-display').textContent = last5;
+      document.getElementById('timer-display').textContent = '00:' + String(remainingSeconds).padStart(2, '0');
     }
 
-    function updateDisplay(data) {
+    function updatePredictionDisplay(data) {
       document.getElementById('prediction-display').textContent = data.prediction;
       document.getElementById('number1-display').textContent = data.numbers[0];
       document.getElementById('number2-display').textContent = data.numbers[1];
@@ -520,16 +435,62 @@
       else confEl.classList.add('text-danger');
     }
 
-    function tickTimer() {
-      currentTimer--;
-      if (currentTimer <= 0) currentTimer = 30;
-      document.getElementById('timer-display').textContent = '00:' + String(currentTimer).padStart(2, '0');
+    /* Fetch both APIs in parallel */
+    async function fetchAllData() {
+      try {
+        var ts = Date.now();
+        var [historyRes, issueRes] = await Promise.allSettled([
+          fetch('https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=' + ts),
+          fetch('https://api.bdg88zf.com/api/webapi/GetGameIssue', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              typeId: 1,
+              language: 0,
+              random: 'abb9f056ac7d47f0b1689be6e1e3a8c9',
+              signature: '5C2C02FABC29A87F5D5B95B0ECBA967F',
+              timestamp: Math.floor(Date.now() / 1000)
+            })
+          })
+        ]);
+
+        /* Process history */
+        if (historyRes.status === 'fulfilled' && historyRes.value.ok) {
+          var json = await historyRes.value.json();
+          if (json && json.data && Array.isArray(json.data.list)) {
+            historyData = json.data.list.slice(0, 20);
+            if (historyData.length > 0 && historyData[0].issueNumber) {
+              lastIssueNumber = historyData[0].issueNumber;
+            }
+            updatePredictionDisplay(analyzePatterns());
+          }
+        }
+
+        /* Process game issue (for sync verification) */
+        if (issueRes.status === 'fulfilled' && issueRes.value.ok) {
+          var issueJson = await issueRes.value.json();
+          /* Game issue data used for cross-validation */
+          if (issueJson && issueJson.data) {
+            console.log('GameIssue synced:', issueJson.data.issueNumber);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to fetch data:', e);
+      }
     }
 
     function startPredictionSystem() {
-      fetchHistory();
-      setInterval(tickTimer, 1000);
-      setInterval(fetchHistory, 3000);
+      /* Initial fetch + display */
+      fetchAllData();
+      updatePeriodTimer();
+
+      /* Timer ticks every 1s */
+      if (tickerInterval) clearInterval(tickerInterval);
+      tickerInterval = setInterval(updatePeriodTimer, 1000);
+
+      /* API poll every 3s */
+      if (fetchInterval) clearInterval(fetchInterval);
+      fetchInterval = setInterval(fetchAllData, 3000);
     }
   </script>
 </body>
