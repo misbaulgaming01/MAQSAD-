@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MAQSAD MAXIMUM — AI Prediction Engine</title>
-  <meta name="description" content="MAQSAD MAXIMUM - AI Pattern Based Prediction Engine" />
+  <title>MAQSAD MAXIMUM</title>
+  <meta name="description" content="MAQSAD MAXIMUM — terminal prediction" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ----------------------------------------------
+      CYBERPUNK PREDICTION TERMINAL – MAQSAD MAXIMUM
+      Minimal, deterministic, full mobile
+    ------------------------------------------------ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -29,7 +33,7 @@
       --danger: hsl(0, 70%, 55%);
     }
 
-    html, body { overflow: hidden; height: 100%; }
+    html, body { overflow: hidden; height: 100%; width: 100%; }
 
     body {
       font-family: 'Rajdhani', sans-serif;
@@ -39,11 +43,9 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ===== Screens ===== */
-    .screen { display: none; height: 100vh; overflow: hidden; }
-    .screen.active { display: flex; }
+    .screen { display: none; height: 100vh; width: 100vw; overflow: hidden; }
+    .screen.active { display: flex; flex-direction: column; }
 
-    /* ===== Gradient Text ===== */
     .gradient-gold-text {
       background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
       -webkit-background-clip: text;
@@ -51,7 +53,7 @@
       background-clip: text;
     }
 
-    /* ===== Toast ===== */
+    /* ----- toast micro ----- */
     .toast-container {
       position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
       z-index: 9999; pointer-events: none;
@@ -60,7 +62,7 @@
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
       border: 1px solid var(--border); color: var(--primary);
       padding: 0.875rem 1.5rem; border-radius: 0.5rem;
-      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
+      font-weight: 700; font-size: 1rem;
       text-transform: uppercase; letter-spacing: 0.1em;
       box-shadow: 0 0 20px hsla(45, 100%, 60%, 0.15);
       opacity: 0; transform: translateY(-20px);
@@ -68,9 +70,7 @@
     }
     .toast.show { opacity: 1; transform: translateY(0); }
 
-    /* ===== Link Screen ===== */
-    #link-screen { flex-direction: column; height: 100vh; }
-
+    /* ----- headers & cards ----- */
     .top-header {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
       border-bottom: 1px solid var(--border); padding: 1rem;
@@ -79,12 +79,10 @@
       font-size: 1.5rem; font-weight: 700; text-align: center;
       text-transform: uppercase; letter-spacing: 0.15em;
     }
-
     .main-content {
       flex: 1; display: flex; flex-direction: column;
       align-items: center; justify-content: center; padding: 1rem;
     }
-
     .game-card {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
       border: 1px solid var(--border); border-radius: 0.75rem;
@@ -92,7 +90,6 @@
       box-shadow: 0 0 30px hsla(45, 100%, 60%, 0.1), inset 0 1px 0 hsla(45, 100%, 60%, 0.1);
       animation: slideUp 0.5s ease-out;
     }
-
     .card-title {
       font-size: 1.25rem; font-weight: 700; text-align: center;
       margin-bottom: 0.5rem; color: var(--primary); text-transform: uppercase;
@@ -101,7 +98,6 @@
       text-align: center; color: var(--muted-foreground);
       font-size: 0.875rem; margin-bottom: 1.5rem; text-transform: uppercase;
     }
-
     .game-input {
       width: 100%; background: var(--cyber-dark);
       border: 1px solid transparent; border-radius: 0.5rem;
@@ -111,10 +107,9 @@
     }
     .game-input:focus { box-shadow: 0 0 0 2px var(--primary); }
     .game-input::placeholder { color: var(--muted-foreground); }
-
     .game-button {
       width: 100%; padding: 0.875rem; border: none; border-radius: 0.5rem;
-      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
+      font-weight: 700; font-size: 1rem;
       text-transform: uppercase; letter-spacing: 0.1em;
       color: var(--primary-foreground);
       background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
@@ -127,14 +122,12 @@
     }
     .game-button:active { transform: translateY(0); }
 
-    /* ===== Game Screen ===== */
-    #game-screen { flex-direction: column; height: 100vh; overflow: hidden; }
-
+    /* ----- GAME SCREEN – PREDICTION BAR + IFRAME ----- */
+    #game-screen { height: 100vh; width: 100vw; }
     .game-container {
       position: relative; flex: 1; width: 100%;
       display: flex; flex-direction: column;
     }
-
     .prediction-bar {
       position: absolute; top: 0.5rem; left: 0.5rem; right: 0.5rem;
       z-index: 10; display: flex; justify-content: space-between;
@@ -142,13 +135,13 @@
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
       border: 1px solid hsla(45, 50%, 30%, 0.5); border-radius: 0.5rem;
       animation: pulseGlow 2s ease-in-out infinite;
+      flex-wrap: wrap;
     }
-
     .prediction-item {
       display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
     }
     .prediction-label {
-      font-size: 10px; color: var(--muted-foreground);
+      font-size: 9px; color: var(--muted-foreground);
       text-transform: uppercase; letter-spacing: 0.1em;
     }
     .prediction-value {
@@ -156,15 +149,13 @@
     }
     .prediction-value.primary { color: var(--primary); }
     .numbers-container { display: flex; gap: 0.5rem; }
-
     .iframe-wrapper { flex: 1; width: 100%; }
     .iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
-
     .text-success { color: var(--success); }
     .text-warning { color: var(--warning); }
     .text-danger  { color: var(--danger); }
 
-    /* ===== History Button ===== */
+    /* ----- HISTORY FAB (CYBER) ----- */
     .history-fab {
       position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 40;
       width: 3.5rem; height: 3.5rem; border-radius: 50%; border: none;
@@ -180,7 +171,7 @@
     }
     .history-fab svg { width: 1.5rem; height: 1.5rem; fill: none; stroke: var(--primary-foreground); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* ===== History Panel ===== */
+    /* ----- HISTORY OVERLAY ----- */
     .history-overlay {
       position: fixed; inset: 0; z-index: 50;
       display: flex; flex-direction: column;
@@ -189,16 +180,13 @@
       transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
     }
     .history-overlay.open { transform: translateY(0); }
-
     .history-header {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
       border-bottom: 1px solid var(--border); padding: 1rem;
       display: flex; align-items: center; justify-content: space-between;
     }
     .history-header-left { display: flex; align-items: center; gap: 0.5rem; }
-    .history-header-left svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: var(--primary); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .history-title { font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-
     .close-btn {
       width: 2.25rem; height: 2.25rem; border-radius: 0.5rem;
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
@@ -208,7 +196,6 @@
     }
     .close-btn:hover { color: var(--primary); }
     .close-btn svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
     .stats-grid {
       display: grid; grid-template-columns: repeat(4, 1fr);
       gap: 0.5rem; padding: 0.75rem; border-bottom: 1px solid var(--border);
@@ -220,16 +207,13 @@
     }
     .stat-label { font-size: 9px; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.1em; }
     .stat-value { font-size: 1.125rem; font-weight: 700; }
-
     .history-list { flex: 1; overflow-y: auto; padding: 0.75rem; }
     .history-list::-webkit-scrollbar { width: 4px; }
     .history-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
     .history-empty {
       display: flex; align-items: center; justify-content: center; height: 100%;
       color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.875rem;
     }
-
     .history-record {
       background: linear-gradient(145deg, var(--cyber-card), var(--cyber-card-dark));
       border: 1px solid hsla(45, 50%, 30%, 0.5); border-radius: 0.5rem;
@@ -243,16 +227,14 @@
     .record-label { font-size: 10px; color: var(--muted-foreground); text-transform: uppercase; }
     .record-value { font-size: 0.875rem; font-weight: 700; color: var(--foreground); }
     .record-value.primary { color: var(--primary); }
-
     .status-badge {
       font-size: 0.75rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: 0.25rem;
     }
     .status-PENDING { color: var(--muted-foreground); background: hsla(220, 15%, 55%, 0.15); }
-    .status-WIN { color: var(--success); background: hsla(120, 60%, 50%, 0.15); }
-    .status-LOSS { color: var(--danger); background: hsla(0, 70%, 55%, 0.15); }
+    .status-VICTORY { color: var(--success); background: hsla(120, 60%, 50%, 0.15); }
+    .status-DEFEAT { color: var(--danger); background: hsla(0, 70%, 55%, 0.15); }
     .status-JACKPOT { color: var(--primary); background: hsla(45, 100%, 60%, 0.15); }
 
-    /* ===== Animations ===== */
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -266,7 +248,6 @@
       to   { opacity: 1; transform: translateX(0); }
     }
 
-    /* ===== Responsive ===== */
     @media (min-width: 640px) {
       .top-title        { font-size: 1.875rem; }
       .card-title       { font-size: 1.5rem; }
@@ -276,11 +257,26 @@
 </head>
 <body>
 
-  <!-- Toast -->
+  <!-- ======== TOAST ======== -->
   <div class="toast-container"><div class="toast" id="toast-msg"></div></div>
 
-  <!-- Link Screen -->
-  <div id="link-screen" class="screen active">
+  <!-- ======== SCREEN 1 – KEY AUTH ======== -->
+  <div id="key-screen" class="screen active" style="flex-direction:column;">
+    <div class="top-header">
+      <h1 class="top-title gradient-gold-text">MAQSAD MAXIMUM</h1>
+    </div>
+    <div class="main-content">
+      <div class="game-card">
+        <h2 class="card-title">MAQSAD MAXIMUM</h2>
+        <p class="card-subtitle">KEY YOU TO UNLOCK</p>
+        <input type="text" id="key-input" class="game-input" placeholder="KEY TO OPEN" autocomplete="off">
+        <button id="key-button" class="game-button">UNLOCK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== SCREEN 2 – LINK / IFRAME SETUP ======== -->
+  <div id="link-screen" class="screen" style="flex-direction:column;">
     <div class="top-header">
       <h1 class="top-title gradient-gold-text">MAQSAD MAXIMUM</h1>
     </div>
@@ -288,22 +284,23 @@
       <div class="game-card">
         <h2 class="card-title">MAQSAD MAXIMUM</h2>
         <p class="card-subtitle">Paste your URL to continue</p>
-        <input type="url" id="game-link-input" class="game-input" placeholder="https://example.com/game">
+        <input type="url" id="game-link-input" class="game-input" placeholder="https://example.com/game" autocomplete="off">
         <button id="start-button" class="game-button">UNLOCK</button>
       </div>
     </div>
   </div>
 
-  <!-- Game Screen -->
+  <!-- ======== SCREEN 3 – GAME + PREDICTION ENGINE ======== -->
   <div id="game-screen" class="screen">
     <div class="game-container">
+      <!-- CYBER PREDICTION DASHBOARD -->
       <div class="prediction-bar">
         <div class="prediction-item">
           <span class="prediction-label">PERIOD NO</span>
           <span class="prediction-value" id="period-display">00000</span>
         </div>
         <div class="prediction-item">
-          <span class="prediction-label">TIMER</span>
+          <span class="prediction-label">TIMERY</span>
           <span class="prediction-value" id="timer-display">00:30</span>
         </div>
         <div class="prediction-item">
@@ -322,321 +319,376 @@
           <span class="prediction-value" id="confidence-display">LOW</span>
         </div>
       </div>
+      <!-- IFRAME SANDBOX -->
       <div class="iframe-wrapper">
-        <iframe id="game-iframe" title="Game Frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+        <iframe id="game-iframe" title="MAQSAD TERMINAL" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
       </div>
     </div>
-
-    <!-- History FAB -->
-    <button class="history-fab visible" id="history-btn" style="display:none;">
+    <!-- HISTORY FAB -->
+    <button class="history-fab" id="history-btn">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     </button>
   </div>
 
-  <!-- History Panel -->
+  <!-- ======== HISTORY PANEL (FULL) ======== -->
   <div class="history-overlay" id="history-panel">
     <div class="history-header">
       <div class="history-header-left">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <h2 class="history-title gradient-gold-text">Prediction History</h2>
+        <h2 class="history-title gradient-gold-text">MAQSAD History</h2>
       </div>
       <button class="close-btn" id="history-close">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
+    <!-- STATS COMPACT -->
     <div class="stats-grid">
       <div class="stat-card"><span class="stat-label">Predictions</span><span class="stat-value" id="stat-total" style="color:var(--foreground)">0</span></div>
-      <div class="stat-card"><span class="stat-label">Wins</span><span class="stat-value" id="stat-wins" style="color:var(--success)">0</span></div>
-      <div class="stat-card"><span class="stat-label">Losses</span><span class="stat-value" id="stat-losses" style="color:var(--danger)">0</span></div>
-      <div class="stat-card"><span class="stat-label">Jackpots</span><span class="stat-value" id="stat-jackpots" style="color:var(--primary)">0</span></div>
+      <div class="stat-card"><span class="stat-label">Victory</span><span class="stat-value" id="stat-wins" style="color:var(--success)">0</span></div>
+      <div class="stat-card"><span class="stat-label">Defeat</span><span class="stat-value" id="stat-losses" style="color:var(--danger)">0</span></div>
+      <div class="stat-card"><span class="stat-label">Jackpot</span><span class="stat-value" id="stat-jackpots" style="color:var(--primary)">0</span></div>
     </div>
     <div class="history-list" id="history-list">
-      <div class="history-empty">No predictions yet</div>
+      <div class="history-empty">NO MAQSAD MAXIMUM</div>
     </div>
   </div>
 
   <script>
-    /* ========================================
-       MAQSAD MAXIMUM — AI Prediction Engine
-       Standalone Single-File Application
-       Deterministic: same API data + UTC time
-       = same result on every device worldwide.
-    ======================================== */
+    (function() {
+      "use strict";
 
-    /* ===== Toast ===== */
-    var toastTimeout = null;
-    function showToast(msg, duration) {
-      var el = document.getElementById('toast-msg');
-      el.textContent = msg;
-      el.classList.add('show');
-      if (toastTimeout) clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(function () { el.classList.remove('show'); }, duration || 3000);
-    }
-
-    /* ===== Screen Management ===== */
-    var screens = { link: document.getElementById('link-screen'), game: document.getElementById('game-screen') };
-    function showScreen(name) {
-      Object.values(screens).forEach(function (s) { s.classList.remove('active'); });
-      screens[name].classList.add('active');
-    }
-
-    /* ===== Link Screen ===== */
-    document.getElementById('game-link-input').addEventListener('keydown', function (e) { if (e.key === 'Enter') startGame(); });
-    document.getElementById('start-button').addEventListener('click', startGame);
-
-    function startGame() {
-      var link = document.getElementById('game-link-input').value.trim();
-      if (!link) { showToast('SET UP YOUR PLATFORM', 5000); return; }
-      document.getElementById('game-iframe').src = link;
-      document.getElementById('history-btn').style.display = 'flex';
-      showScreen('game');
-      startPredictionSystem();
-    }
-
-    /* ===== History Panel ===== */
-    document.getElementById('history-btn').addEventListener('click', function () {
-      document.getElementById('history-panel').classList.add('open');
-    });
-    document.getElementById('history-close').addEventListener('click', function () {
-      document.getElementById('history-panel').classList.remove('open');
-    });
-
-    var predictionHistory = [];
-    var lastPeriodTracked = '';
-
-    function updateStats() {
-      var total = predictionHistory.length;
-      var wins = predictionHistory.filter(function (r) { return r.status === 'WIN'; }).length;
-      var losses = predictionHistory.filter(function (r) { return r.status === 'LOSS'; }).length;
-      var jackpots = predictionHistory.filter(function (r) { return r.status === 'JACKPOT'; }).length;
-      document.getElementById('stat-total').textContent = total;
-      document.getElementById('stat-wins').textContent = wins;
-      document.getElementById('stat-losses').textContent = losses;
-      document.getElementById('stat-jackpots').textContent = jackpots;
-    }
-
-    function renderHistory() {
-      var container = document.getElementById('history-list');
-      if (predictionHistory.length === 0) {
-        container.innerHTML = '<div class="history-empty">No predictions yet</div>';
-        return;
+      // ========== TOAST ==========
+      let toastTimeout = null;
+      function showToast(msg, duration = 3000) {
+        const el = document.getElementById('toast-msg');
+        el.textContent = msg;
+        el.classList.add('show');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => { el.classList.remove('show'); }, duration);
       }
-      var html = '';
-      predictionHistory.forEach(function (r) {
-        html += '<div class="history-record">'
-          + '<div class="record-col"><span class="record-label">Period</span><span class="record-value">' + r.period + '</span></div>'
-          + '<div class="record-col center"><span class="record-label">Predict</span><span class="record-value primary">' + r.prediction + '</span></div>'
-          + '<div class="record-col center"><span class="record-label">Numbers</span><span class="record-value">' + r.numbers[0] + ', ' + r.numbers[1] + '</span></div>'
-          + '<div class="record-col end"><span class="record-label">Status</span><span class="status-badge status-' + r.status + '">' + r.status + '</span></div>'
-          + '</div>';
+
+      // ========== SCREEN CONTROL ==========
+      const screens = {
+        key: document.getElementById('key-screen'),
+        link: document.getElementById('link-screen'),
+        game: document.getElementById('game-screen')
+      };
+      function showScreen(name) {
+        Object.values(screens).forEach(s => s.classList.remove('active'));
+        screens[name].classList.add('active');
+      }
+
+      // ========== KEY VALIDATION (HARDCODED) ==========
+      const VALID_KEY = 'MAQSAD 758501';
+      document.getElementById('key-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') checkKey(); });
+      document.getElementById('key-button').addEventListener('click', checkKey);
+
+      function checkKey() {
+        const key = document.getElementById('key-input').value.trim();
+        if (!key) { showToast('KEY NO MACHING', 3000); return; }
+        if (key === VALID_KEY) {
+          showToast('MAQSAD MAXIMUM', 2000);
+          showScreen('link');
+        } else {
+          showToast('INVALID — KEY NO MACHING', 3000);
+        }
+      }
+
+      // ========== LINK SCREEN ==========
+      document.getElementById('game-link-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') startGame(); });
+      document.getElementById('start-button').addEventListener('click', startGame);
+
+      function startGame() {
+        let link = document.getElementById('game-link-input').value.trim();
+        if (!link) { showToast('SET UP YOUR PLATFORM', 5000); return; }
+        if (!link.startsWith('https://')) { showToast('SET UP YOUR PLATFORM', 4000); return; }
+        // set iframe src
+        document.getElementById('game-iframe').src = link;
+        // show history FAB
+        document.getElementById('history-btn').classList.add('visible');
+        showScreen('game');
+        // start prediction system
+        startPredictionSystem();
+      }
+
+      // ========== HISTORY PANEL ==========
+      const historyPanel = document.getElementById('history-panel');
+      document.getElementById('history-btn').addEventListener('click', () => {
+        historyPanel.classList.add('open');
       });
-      container.innerHTML = html;
-    }
+      document.getElementById('history-close').addEventListener('click', () => {
+        historyPanel.classList.remove('open');
+      });
 
-    /* ===== Deterministic Prediction Engine ===== */
-    var historyData = [];
+      // ---------- PREDICTION CORE ----------
+      let predictionHistory = [];        // array of prediction records
+      let lastPeriodTracked = '';       // to detect new period
+      let historyData = [];            // fetched from API (actual results)
 
-    function generateNumbers(prediction, seed) {
-      var pool = prediction === 'BIG' ? [5, 6, 7, 8, 9] : [0, 1, 2, 3, 4];
-      var idx1 = seed % pool.length;
-      var idx2 = (seed + 2) % pool.length;
-      var num1 = pool[idx1];
-      var num2 = pool[idx2];
-      if (num1 === num2) num2 = pool[(idx2 + 1) % pool.length];
-      return [num1, num2];
-    }
-
-    function analyzePatterns() {
-      if (historyData.length < 3) {
-        return { prediction: 'BIG', numbers: [5, 6], confidence: 'LOW', reasoning: 'Insufficient data' };
+      // stat updater
+      function updateStats() {
+        const total = predictionHistory.length;
+        const wins = predictionHistory.filter(r => r.status === 'VICTORY').length;
+        const losses = predictionHistory.filter(r => r.status === 'DEFEAT').length;
+        const jackpots = predictionHistory.filter(r => r.status === 'JACKPOT').length;
+        document.getElementById('stat-total').textContent = total;
+        document.getElementById('stat-wins').textContent = wins;
+        document.getElementById('stat-losses').textContent = losses;
+        document.getElementById('stat-jackpots').textContent = jackpots;
       }
 
-      var numbers = historyData.map(function (h) { return parseInt(h.number, 10); });
-      var results = numbers.map(function (n) { return n >= 5 ? 'BIG' : 'SMALL'; });
-
-      var streakCount = 1;
-      var lastResult = results[0];
-      for (var i = 1; i < results.length; i++) {
-        if (results[i] === lastResult) streakCount++;
-        else break;
+      // render history list
+      function renderHistory() {
+        const container = document.getElementById('history-list');
+        if (predictionHistory.length === 0) {
+          container.innerHTML = '<div class="history-empty">NO MAQSAD MAXIMUM</div>';
+          return;
+        }
+        let html = '';
+        // show most recent first (already unshift)
+        predictionHistory.forEach(r => {
+          html += '<div class="history-record">'
+            + '<div class="record-col"><span class="record-label">Period</span><span class="record-value">' + r.period + '</span></div>'
+            + '<div class="record-col center"><span class="record-label">Predict</span><span class="record-value primary">' + r.prediction + '</span></div>'
+            + '<div class="record-col center"><span class="record-label">Jackpot</span><span class="record-value">' + r.numbers[0] + ', ' + r.numbers[1] + '</span></div>'
+            + '<div class="record-col end"><span class="record-label">Status</span><span class="status-badge status-' + r.status + '">' + r.status + '</span></div>'
+            + '</div>';
+        });
+        container.innerHTML = html;
       }
 
-      var recent10 = results.slice(0, 10);
-      var bigCount = recent10.filter(function (r) { return r === 'BIG'; }).length;
-      var smallCount = recent10.length - bigCount;
-
-      var alternations = 0;
-      var altLen = Math.min(results.length - 1, 10);
-      for (var j = 0; j < altLen; j++) {
-        if (results[j] !== results[j + 1]) alternations++;
-      }
-      var alternationRatio = alternations / Math.max(altLen, 1);
-
-      var recentSum = numbers.slice(0, 5).reduce(function (a, b) { return a + b; }, 0);
-      var avgRecent = recentSum / Math.min(numbers.length, 5);
-
-      var lastNumber = numbers[0];
-      var numberRepeatCount = numbers.slice(0, 5).filter(function (n) { return n === lastNumber; }).length;
-
-      var prediction, confidence, reasoning;
-
-      if (streakCount >= 5) {
-        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
-        confidence = 'HIGH';
-        reasoning = 'Streak ' + streakCount + 'x ' + lastResult + ' — reversal expected';
-      } else if (streakCount >= 3) {
-        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
-        confidence = 'MEDIUM';
-        reasoning = 'Streak ' + streakCount + 'x ' + lastResult + ' — likely change';
-      } else if (alternationRatio > 0.7) {
-        prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
-        confidence = 'HIGH';
-        reasoning = 'Alternating pattern detected';
-      } else if (Math.abs(bigCount - smallCount) >= 4) {
-        prediction = bigCount > smallCount ? 'SMALL' : 'BIG';
-        confidence = 'MEDIUM';
-        reasoning = 'Imbalance: ' + bigCount + 'B/' + smallCount + 'S';
-      } else if (avgRecent >= 6) {
-        prediction = 'SMALL';
-        confidence = 'MEDIUM';
-        reasoning = 'High avg (' + avgRecent.toFixed(1) + ') — correction';
-      } else if (avgRecent <= 3) {
-        prediction = 'BIG';
-        confidence = 'MEDIUM';
-        reasoning = 'Low avg (' + avgRecent.toFixed(1) + ') — correction';
-      } else if (numberRepeatCount >= 3) {
-        prediction = lastNumber >= 5 ? 'SMALL' : 'BIG';
-        confidence = 'MEDIUM';
-        reasoning = 'Number ' + lastNumber + ' repeating';
-      } else {
-        prediction = lastResult;
-        confidence = 'LOW';
-        reasoning = 'Following momentum';
+      // ---------- deterministic numbers generator ----------
+      function generateNumbers(prediction, seed) {
+        const pool = prediction === 'BIG' ? [5,6,7,8,9] : [0,1,2,3,4];
+        let idx1 = seed % pool.length;
+        let idx2 = (seed + 2) % pool.length;
+        let num1 = pool[idx1];
+        let num2 = pool[idx2];
+        if (num1 === num2) num2 = pool[(idx2 + 1) % pool.length];
+        return [num1, num2];
       }
 
-      var seedNumber = numbers.slice(0, 3).reduce(function (a, b) { return a + b; }, 0);
-      return { prediction: prediction, numbers: generateNumbers(prediction, seedNumber), confidence: confidence, reasoning: reasoning };
-    }
+      // ---------- pattern analysis (deterministic AI) ----------
+      function analyzePatterns() {
+        if (!historyData || historyData.length < 3) {
+          return { prediction: 'BIG', numbers: [5,6], confidence: 'LOW', reasoning: 'insufficient data' };
+        }
 
-    /* ===== Period & Timer (UTC) ===== */
-    function getPeriodAndTimer() {
-      var now = new Date();
-      var totalSeconds = now.getUTCHours() * 3600 + now.getUTCMinutes() * 60 + now.getUTCSeconds();
-      var upcomingPeriod = Math.floor(totalSeconds / 30) + 1;
-      var y = now.getUTCFullYear();
-      var m = String(now.getUTCMonth() + 1).padStart(2, '0');
-      var d = String(now.getUTCDate()).padStart(2, '0');
-      var fullPeriod = y + m + d + '100005' + String(upcomingPeriod).padStart(4, '0');
-      var remaining = 30 - (now.getUTCSeconds() % 30);
-      return { period: fullPeriod.slice(-5), remaining: remaining, fullPeriod: fullPeriod };
-    }
+        const numbers = historyData.map(h => parseInt(h.number, 10)).filter(n => !isNaN(n));
+        if (numbers.length === 0) return { prediction: 'BIG', numbers: [5,6], confidence: 'LOW', reasoning: 'no valid numbers' };
 
-    function updatePeriodTimer() {
-      var info = getPeriodAndTimer();
-      document.getElementById('period-display').textContent = info.period;
-      document.getElementById('timer-display').textContent = '00:' + String(info.remaining).padStart(2, '0');
-    }
+        const results = numbers.map(n => n >= 5 ? 'BIG' : 'SMALL');
 
-    /* ===== Display ===== */
-    function updatePredictionDisplay(data) {
-      document.getElementById('prediction-display').textContent = data.prediction;
-      document.getElementById('number1-display').textContent = data.numbers[0];
-      document.getElementById('number2-display').textContent = data.numbers[1];
-      var confEl = document.getElementById('confidence-display');
-      confEl.textContent = data.confidence;
-      confEl.className = 'prediction-value';
-      if (data.confidence === 'HIGH') confEl.classList.add('text-success');
-      else if (data.confidence === 'MEDIUM') confEl.classList.add('text-warning');
-      else confEl.classList.add('text-danger');
-    }
+        // streak
+        let streakCount = 1;
+        const lastResult = results[0];
+        for (let i=1; i<results.length; i++) {
+          if (results[i] === lastResult) streakCount++;
+          else break;
+        }
 
-    /* ===== Data Fetching & History Tracking ===== */
-    async function fetchAllData() {
-      try {
-        var ts = Date.now();
-        var results = await Promise.allSettled([
-          fetch('https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=' + ts),
-          fetch('https://api.bdg88zf.com/api/webapi/GetGameIssue', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              typeId: 1, language: 0,
-              random: 'abb9f056ac7d47f0b1689be6e1e3a8c9',
-              signature: '5C2C02FABC29A87F5D5B95B0ECBA967F',
-              timestamp: Math.floor(Date.now() / 1000)
+        // recent imbalance (last 10)
+        const recent10 = results.slice(0,10);
+        const bigCount = recent10.filter(r => r === 'BIG').length;
+        const smallCount = recent10.length - bigCount;
+
+        // alternation
+        let alternations = 0;
+        const altLen = Math.min(results.length - 1, 10);
+        for (let j=0; j<altLen; j++) {
+          if (results[j] !== results[j+1]) alternations++;
+        }
+        const alternationRatio = altLen > 0 ? alternations / altLen : 0;
+
+        // average of recent 5
+        const recent5 = numbers.slice(0,5);
+        const avgRecent = recent5.reduce((a,b)=>a+b,0) / Math.min(5, recent5.length);
+
+        // number repeat
+        const lastNumber = numbers[0];
+        const numberRepeatCount = numbers.slice(0,5).filter(n => n === lastNumber).length;
+
+        let prediction, confidence, reasoning;
+
+        if (streakCount >= 5) {
+          prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+          confidence = 'HIGH';
+          reasoning = `streak ${streakCount}x → reversal`;
+        } else if (streakCount >= 3) {
+          prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+          confidence = 'MEDIUM';
+          reasoning = `streak ${streakCount}x → likely change`;
+        } else if (alternationRatio > 0.7) {
+          prediction = lastResult === 'BIG' ? 'SMALL' : 'BIG';
+          confidence = 'HIGH';
+          reasoning = 'alternating pattern';
+        } else if (Math.abs(bigCount - smallCount) >= 4) {
+          prediction = bigCount > smallCount ? 'SMALL' : 'BIG';
+          confidence = 'MEDIUM';
+          reasoning = `imbalance ${bigCount}B/${smallCount}S`;
+        } else if (avgRecent >= 6) {
+          prediction = 'SMALL';
+          confidence = 'MEDIUM';
+          reasoning = `high avg (${avgRecent.toFixed(1)}) → correction`;
+        } else if (avgRecent <= 3) {
+          prediction = 'BIG';
+          confidence = 'MEDIUM';
+          reasoning = `low avg (${avgRecent.toFixed(1)}) → correction`;
+        } else if (numberRepeatCount >= 3) {
+          prediction = lastNumber >= 5 ? 'SMALL' : 'BIG';
+          confidence = 'MEDIUM';
+          reasoning = `number ${lastNumber} repeating`;
+        } else {
+          prediction = lastResult;
+          confidence = 'LOW';
+          reasoning = 'momentum';
+        }
+
+        // deterministic seed
+        const seed = numbers.slice(0,3).reduce((a,b)=>a+b,0) || (new Date().getTime() % 100);
+        const nums = generateNumbers(prediction, seed);
+        return { prediction, numbers: nums, confidence, reasoning };
+      }
+
+      // ---------- PERIOD & TIMER (UTC 30s) ----------
+      function getPeriodAndTimer() {
+        const now = new Date();
+        const totalSeconds = now.getUTCHours() * 3600 + now.getUTCMinutes() * 60 + now.getUTCSeconds();
+        const upcomingPeriod = Math.floor(totalSeconds / 30) + 1;
+        const y = now.getUTCFullYear();
+        const m = String(now.getUTCMonth() + 1).padStart(2,'0');
+        const d = String(now.getUTCDate()).padStart(2,'0');
+        const fullPeriod = y + m + d + '100005' + String(upcomingPeriod).padStart(4,'0');
+        const remaining = 30 - (now.getUTCSeconds() % 30);
+        return { period: fullPeriod.slice(-5), remaining, fullPeriod };
+      }
+
+      function updatePeriodTimer() {
+        const info = getPeriodAndTimer();
+        document.getElementById('period-display').textContent = info.period;
+        document.getElementById('timer-display').textContent = '00:' + String(info.remaining).padStart(2,'0');
+      }
+
+      // update prediction display
+      function updatePredictionDisplay(data) {
+        document.getElementById('prediction-display').textContent = data.prediction;
+        document.getElementById('number1-display').textContent = data.numbers[0];
+        document.getElementById('number2-display').textContent = data.numbers[1];
+        const confEl = document.getElementById('confidence-display');
+        confEl.textContent = data.confidence;
+        confEl.className = 'prediction-value';
+        if (data.confidence === 'HIGH') confEl.classList.add('text-success');
+        else if (data.confidence === 'MEDIUM') confEl.classList.add('text-warning');
+        else confEl.classList.add('text-danger');
+      }
+
+      // ---------- FETCH from two endpoints ----------
+      async function fetchAllData() {
+        try {
+          const ts = Date.now();
+          const results = await Promise.allSettled([
+            fetch('https://draw.ar-lottery01.com/WinGo/WinGo_30S/GetHistoryIssuePage.json?ts=' + ts),
+            fetch('https://api.bdg88zf.com/api/webapi/GetGameIssue', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                typeId: 1, language: 0,
+                random: 'abb9f056ac7d47f0b1689be6e1e3a8c9',
+                signature: '5C2C02FABC29A87F5D5B95B0ECBA967F',
+                timestamp: Math.floor(Date.now() / 1000)
+              })
             })
-          })
-        ]);
+          ]);
 
-        var historyRes = results[0];
-        if (historyRes.status === 'fulfilled' && historyRes.value.ok) {
-          var json = await historyRes.value.json();
-          if (json && json.data && Array.isArray(json.data.list)) {
-            historyData = json.data.list.slice(0, 20);
-            var analysis = analyzePatterns();
-            updatePredictionDisplay(analysis);
+          // ---- process history ----
+          const historyRes = results[0];
+          if (historyRes.status === 'fulfilled' && historyRes.value.ok) {
+            const json = await historyRes.value.json();
+            if (json?.data?.list && Array.isArray(json.data.list)) {
+              historyData = json.data.list.slice(0, 20);
+              // generate new analysis
+              const analysis = analyzePatterns();
+              updatePredictionDisplay(analysis);
 
-            var currentInfo = getPeriodAndTimer();
-            var currentPeriod = currentInfo.period;
+              const currentInfo = getPeriodAndTimer();
+              const currentPeriod = currentInfo.period;
 
-            // Resolve previous pending predictions
-            if (lastPeriodTracked && lastPeriodTracked !== currentPeriod && historyData.length > 0) {
-              var actualNumber = parseInt(historyData[0].number, 10);
-              var actualResult = actualNumber >= 5 ? 'BIG' : 'SMALL';
-              predictionHistory.forEach(function (record) {
-                if (record.status === 'PENDING') {
-                  var isNumberMatch = record.numbers.indexOf(actualNumber) !== -1;
-                  if (isNumberMatch) record.status = 'JACKPOT';
-                  else if (record.prediction === actualResult) record.status = 'WIN';
-                  else record.status = 'LOSS';
-                  record.actualNumber = actualNumber;
+              // ---- RESOLVE PENDING PREDICTIONS (only once per period) ----
+              if (lastPeriodTracked && lastPeriodTracked !== currentPeriod && historyData.length > 0) {
+                const actualNumber = parseInt(historyData[0].number, 10);
+                if (!isNaN(actualNumber)) {
+                  const actualResult = actualNumber >= 5 ? 'BIG' : 'SMALL';
+                  predictionHistory.forEach(record => {
+                    if (record.status === 'PENDING') {
+                      // jackpot condition: actual number in predicted jackpot numbers
+                      const isJackpot = record.numbers.includes(actualNumber);
+                      if (isJackpot) record.status = 'JACKPOT';
+                      else if (record.prediction === actualResult) record.status = 'VICTORY';
+                      else record.status = 'DEFEAT';
+                      record.actualNumber = actualNumber;
+                    }
+                  });
                 }
-              });
+              }
+
+              // ---- new period: push new prediction ----
+              if (currentPeriod !== lastPeriodTracked) {
+                predictionHistory.unshift({
+                  id: currentPeriod + '-' + Date.now(),
+                  period: currentPeriod,
+                  prediction: analysis.prediction,
+                  numbers: [...analysis.numbers],
+                  confidence: analysis.confidence,
+                  status: 'PENDING',
+                  timestamp: Date.now()
+                });
+                lastPeriodTracked = currentPeriod;
+              }
+
+              // limit history to 30 entries
+              if (predictionHistory.length > 30) predictionHistory.pop();
+
+              updateStats();
+              renderHistory();
             }
+          }
 
-            // Add new prediction record
-            if (currentPeriod !== lastPeriodTracked) {
-              predictionHistory.unshift({
-                id: currentPeriod + '-' + Date.now(),
-                period: currentPeriod,
-                prediction: analysis.prediction,
-                numbers: analysis.numbers,
-                confidence: analysis.confidence,
-                status: 'PENDING',
-                timestamp: Date.now()
-              });
-              lastPeriodTracked = currentPeriod;
+          // ---- secondary fetch (silent) ----
+          const issueRes = results[1];
+          if (issueRes.status === 'fulfilled' && issueRes.value.ok) {
+            const issueJson = await issueRes.value.json();
+            if (issueJson?.data) {
+              // just sync – debug silent
+              console.log('GameIssue sync:', issueJson.data.issueNumber);
             }
-
-            updateStats();
-            renderHistory();
           }
+        } catch (e) {
+          console.error('fetchAllData error (graceful):', e);
         }
-
-        var issueRes = results[1];
-        if (issueRes.status === 'fulfilled' && issueRes.value.ok) {
-          var issueJson = await issueRes.value.json();
-          if (issueJson && issueJson.data) {
-            console.log('GameIssue synced:', issueJson.data.issueNumber);
-          }
-        }
-      } catch (e) {
-        console.error('Failed to fetch data:', e);
       }
-    }
 
-    /* ===== Start System ===== */
-    var tickerInterval = null;
-    var fetchInterval = null;
+      // ---------- start prediction system ----------
+      let tickerInterval = null;
+      let fetchInterval = null;
 
-    function startPredictionSystem() {
-      fetchAllData();
-      updatePeriodTimer();
-      if (tickerInterval) clearInterval(tickerInterval);
-      tickerInterval = setInterval(updatePeriodTimer, 1000);
-      if (fetchInterval) clearInterval(fetchInterval);
-      fetchInterval = setInterval(fetchAllData, 3000);
-    }
+      function startPredictionSystem() {
+        // initial fetch & timer
+        fetchAllData();
+        updatePeriodTimer();
+
+        if (tickerInterval) clearInterval(tickerInterval);
+        tickerInterval = setInterval(updatePeriodTimer, 1000);
+
+        if (fetchInterval) clearInterval(fetchInterval);
+        fetchInterval = setInterval(fetchAllData, 3000); // consistent with period
+      }
+
+      // ---------- cleanup on unload (optional) ----------
+      window.addEventListener('beforeunload', function() {
+        if (tickerInterval) clearInterval(tickerInterval);
+        if (fetchInterval) clearInterval(fetchInterval);
+      });
+
+    })();
   </script>
 </body>
 </html>
